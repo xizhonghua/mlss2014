@@ -8,10 +8,10 @@ Competition description http://www.mlss2014.com/files/competition.pdf
 Data and files http://www.mlss2014.com/files/competition_files.tar
 
 ### Solutions
-See [Documents](./tree/master/documents)
+See [Documents](https://github.com/hxwang/mlss2014/tree/master/documents)
 
 ### Score Board
-![](./blob/master/Score.PNG)
+![](https://github.com/hxwang/mlss2014/blob/master/Score.PNG)
 
 
 
