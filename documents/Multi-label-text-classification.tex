@@ -1,0 +1,74 @@
+%\documentclass[10pt,conference]{IEEEtran}
+
+\documentclass{article}% default font size: 10pt
+
+
+
+
+\usepackage{amssymb} \usepackage{amsmath} \usepackage{amsthm} \usepackage{algorithm} \usepackage{algorithmic} \usepackage{url} 
+
+\usepackage{subfigure}
+
+\newtheorem{theorem}{Theorem} \newtheorem{lemma}{Lemma} \newtheorem{corollary}{Corollary} \newtheorem{definition}{Definition} \newtheorem{assumption}{Assumption} \newtheorem{example}{Example}
+\newtheorem{observation}[theorem]{Observation}
+%\newtheorem{theorem}{Theorem} \newtheorem{definition}{Definition} \newtheorem{remark}{Remark} \newtheorem{lemma}{Lemma} \newtheorem{corollary}{Corollary} \newtheorem{fact}{Fact} \newtheorem{invariant}{Invariant}
+
+\usepackage{color}
+\newcounter{todocounter}
+\newcommand{\todo}[1]{\stepcounter{todocounter}\textcolor{red}{to-do\#\arabic{todocounter}: #1}}
+\newcommand{\newadded}[1]{{\color{magenta} #1}}
+\newcommand{\question}[1]{{\color{blue} #1}}
+
+
+
+\usepackage{graphicx}
+\graphicspath{{./Figures/}}
+
+
+\begin{document}
+
+\title{Multi-Label Text Classification}
+\date{Jul 18, 2014}
+\author{Huangxin Wang, Zhonghua Xi\thanks{Department of Computer Science, George Mason University. Fairfax, VA 22030. Email: \textsf{hwang14@gmu.edu, zxi@gmu.edu}}}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem Statement}
+
+\section{Algorithm}
+\subsection{ReWeight} We use a variant of TF.IDF model to reweight the word vector of  each document. The TF.IDF variants is defined as:
+\begin{displaymath}
+w_{t,d} = log(tf_{t,d}+1)*idf_t
+\end{displaymath}
+
+where $w_{t,d}$ is the reweight word frequency, $tf_{t,d}$ is the original frequency of term $t$ in document $d$, and $idf_t$ is inverse document frequency which is defined as follows,
+
+\begin{displaymath}
+idf_t = \frac{|D|}{df_t}
+\end{displaymath}
+where $|D|$ is the number of documents in the training set, and $df_t$ is number of documents contains  term $t$.
+
+\subsection{Build Classifiers}
+We build classifier for each class, the classifier is calculated by using the average of each instances in the class.
+
+\subsection{Similarity Calculation}
+We calculate the similarity of a test instance with the classifier using the cosine similarity.
+\begin{displaymath}
+cossim(d_i,d_j) = \frac{d_i*d_j}{|d_i|*|d_j|} = \frac{\sum^N_{k=1} w_{k,i}*w_{k,j}}{\sqrt{\sum^N_{k=1} w^2_{k,i}*\sqrt{\sum^N_{k=1}w^2_{k,j}}}}
+\end{displaymath}
+
+where $d_i$ is feature vector of document $i$ and $d_j$ is the feature vector of class $j$. We denote $cossim(d_i,d_j)$ as the score document $i$ achieves in class $j$.
+
+\subsection{Multi-Label Classify}
+\paragraph{First Label} The first label document $i$ assigned is the class in which it gets the highest score.
+
+\paragraph{Second Label} Similar to the chosen of label 1, for the second label, we choose the class have the second highest score of document $i$. However, we accept the second label only when $score(label_1)/score(label_2) \leq \alpha$, which means document $i$ have almost the same degree of similarity to label 2 as to label 1.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
