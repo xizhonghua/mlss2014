@@ -1,4 +1,9 @@
-mlss2014
+CMU 2014 Machine Learning Summer School Competition
 ========
+Competition description http://www.mlss2014.com/files/competition.pdf
 
-CMU Machine Learning Summer School Competition 
+Data and files http://www.mlss2014.com/files/competition_files.tar
+
+This repository is the code for this competition which won the 1st prize.
+
+ 
